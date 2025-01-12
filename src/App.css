@@ -6,7 +6,6 @@
 }
 
 .plant-wrapper {
-  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,10 +17,11 @@
 .flower {
   --flower-appear-delay: 1s;
   --flower-bottom: 120px;
-  --primary-fill:  #9481FF;
-  --secondary-fill:  #fc9fff;
-  --leaf-fill:  green;
-  --stem-fill:  greenyellow;
+  /* --primary-fill:  #FF8189;
+  --secondary-fill:  #FF9FA1;
+  --tertiary-fill:  #FFC8C7;
+  --leaf-fill:  #93AF45;
+  --stem-fill:  #7B8E36; */
   position: absolute;
   bottom: var(--flower-bottom);
   transition: 200ms opacity ease-in-out var(--flower-appear-delay);
@@ -51,6 +51,10 @@
 
 .secondary-fill {
   fill: var(--secondary-fill)
+}
+
+.tertiary-fill {
+  fill: var(--tertiary-fill)
 }
 
 .leaf-fill {

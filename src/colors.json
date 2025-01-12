@@ -1,0 +1,72 @@
+[
+    {
+        "primaryFill": "#9481FF",
+        "secondaryFill": "#fc9fff",
+        "tertiaryFill": "#FFC8C7",
+        "leafFill": "#93AF45",
+        "stemFill": "#7B8E36"
+    },
+    {
+        "primaryFill": "#FF6F61",
+        "secondaryFill": "#FFB3A7",
+        "tertiaryFill": "#FFD7E1",
+        "leafFill": "#8AB27F",
+        "stemFill": "#739F6F"
+    },
+    {
+        "primaryFill": "#88C0D0",
+        "secondaryFill": "#81A1C1",
+        "tertiaryFill": "#B48EAD",
+        "leafFill": "#A3BE8C",
+        "stemFill": "#88B066"
+    },
+    {
+        "primaryFill": "#FDCB77",
+        "secondaryFill": "#FDD58A",
+        "tertiaryFill": "#F7E4B5",
+        "leafFill": "#9FC27C",
+        "stemFill": "#86A665"
+    },
+    {
+        "primaryFill": "#D084E8",
+        "secondaryFill": "#F2B0FF",
+        "tertiaryFill": "#FAD6F5",
+        "leafFill": "#A8D77D",
+        "stemFill": "#8DC45A"
+    },
+    {
+        "primaryFill": "#6794E6",
+        "secondaryFill": "#A2D2FF",
+        "tertiaryFill": "#C5F0FF",
+        "leafFill": "#82C59A",
+        "stemFill": "#68AA75"
+    },
+    {
+        "primaryFill": "#F48FB1",
+        "secondaryFill": "#F3A1CF",
+        "tertiaryFill": "#FFC1E3",
+        "leafFill": "#90B77D",
+        "stemFill": "#7E995F"
+    },
+    {
+        "primaryFill": "#FFD166",
+        "secondaryFill": "#FAF3A0",
+        "tertiaryFill": "#FFF8D6",
+        "leafFill": "#A2CA85",
+        "stemFill": "#8BBF6A"
+    },
+    {
+        "primaryFill": "#E63946",
+        "secondaryFill": "#F37272",
+        "tertiaryFill": "#F9B5B5",
+        "leafFill": "#99D98C",
+        "stemFill": "#77B371"
+    },
+    {
+        "primaryFill": "#7F4BFF",
+        "secondaryFill": "#A481FF",
+        "tertiaryFill": "#C5A4FF",
+        "leafFill": "#90C893",
+        "stemFill": "#7AB278"
+    }
+]
