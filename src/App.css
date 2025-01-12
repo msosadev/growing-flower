@@ -1,4 +1,46 @@
-.plant {
-  background-color: green;
-  width: 40px;
+.stem {
+  background: linear-gradient(180deg, rgba(147,175,69,1) 0%, rgba(96,109,41,1) 100%);
+  width: 8px;
+  border-radius: 16px 16px 0 0;
+  transition: height 1s;
+}
+
+.plant-wrapper {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(-5px);
+}
+
+/* Flower CSS */
+
+.primary-fill {
+  fill: #9481FF;
+}
+
+.secondary-fill {
+  fill: #fc9fff;
+}
+
+.leaf-fill {
+  fill: green;
+}
+
+.stem-fill {
+  fill: greenyellow;
+}
+
+
+.flower {
+  position: absolute;
+  bottom: 120px;
+}
+
+.left {
+  transform: rotate(-20deg) translateX(-45px);
+}
+
+.right {
+  transform: rotate(20deg) translateX(45px);
 }
