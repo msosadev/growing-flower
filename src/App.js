@@ -13,7 +13,19 @@ function App() {
       <div className="plant-wrapper">
         <div style={{ height: runningTime }} className='stem'>
         </div>
-        <div style={runningTime === 0 ? {display: "none"} : {}} className="flower left"><ReactSVG src="/images/flowers/flower_1.svg" /></div>
+
+        {Array.from({ length: 8 }, (_, index) => (
+          <div
+            style={{
+              opacity: runningTime === 0 ? "0" : "",
+              "--flower-appear-delay": `${index + 1}s`,
+              "--flower-bottom": `${(index + 1) * 100}px`
+            }}
+            className={`flower ${index % 2 === 0 ? "left" : "right"}`}>
+            <ReactSVG src={`/images/flowers/flower_${index + 1}.svg`} />
+          </div>
+        ))}
+
         <img className="pot" src={pot} alt="A pot"></img>
       </div>
     </div>

@@ -8,7 +8,8 @@ export default function useRunningTime() {
         const starterTime = Date.parse(localStorage.getItem('starterTime'));
         const updateTime = setInterval(() => {
             const currentTime = new Date();
-            setRunningTime((currentTime - starterTime) / 6000000);
+            const runningTime = Math.floor((currentTime - starterTime) / 6000000);
+            setRunningTime(runningTime);
         }, 1000);
 
         return () => {

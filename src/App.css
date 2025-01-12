@@ -2,7 +2,7 @@
   background: linear-gradient(180deg, rgba(147,175,69,1) 0%, rgba(96,109,41,1) 100%);
   width: 8px;
   border-radius: 16px 16px 0 0;
-  transition: height 1s;
+  transition: height 1s ease-out 200ms;
 }
 
 .plant-wrapper {
@@ -15,32 +15,48 @@
 
 /* Flower CSS */
 
-.primary-fill {
-  fill: #9481FF;
-}
-
-.secondary-fill {
-  fill: #fc9fff;
-}
-
-.leaf-fill {
-  fill: green;
-}
-
-.stem-fill {
-  fill: greenyellow;
-}
-
-
 .flower {
+  --flower-appear-delay: 1s;
+  --flower-bottom: 120px;
+  --primary-fill:  #9481FF;
+  --secondary-fill:  #fc9fff;
+  --leaf-fill:  green;
+  --stem-fill:  greenyellow;
   position: absolute;
-  bottom: 120px;
+  bottom: var(--flower-bottom);
+  transition: 200ms opacity ease-in-out var(--flower-appear-delay);
 }
 
 .left {
-  transform: rotate(-20deg) translateX(-45px);
+  transform: rotate(-25deg) translateX(-40px);
 }
 
 .right {
-  transform: rotate(20deg) translateX(45px);
+  transform: rotate(25deg) translateX(40px) scale(-1, 1);
+}
+
+.ixora-left {
+  transform: rotate(-35deg) translateX(-45px);
+}
+
+.ixora-right {
+  transform: rotate(35deg) translateX(45px) scale(-1, 1);
+}
+
+/* SVG Colors */
+
+.primary-fill {
+  fill: var(--primary-fill)
+}
+
+.secondary-fill {
+  fill: var(--secondary-fill)
+}
+
+.leaf-fill {
+  fill: var(--leaf-fill)
+}
+
+.stem-fill {
+  fill: var(--stem-fill)
 }
