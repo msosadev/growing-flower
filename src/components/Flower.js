@@ -16,7 +16,7 @@ export default function Flower(props) {
                 "--stem-fill":  props.palette.stemFill
             }}
             className={`transition-opacity duration-200 ease-in-out absolute
-            ${props.index % 2 === 0 ? "-translate-x-10 -rotate-[25deg]" : "translate-x-10 rotate-[25deg] scale-x-[-1]"}`
+            ${props.index % 2 === 0 ? "-translate-x-9 -rotate-[25deg]" : "translate-x-9 rotate-[25deg] scale-x-[-1]"}`
             }>
             <ReactSVG src={`/images/flowers/flower_${props.randomIndex}.svg`} />
         </div>
