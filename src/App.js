@@ -8,11 +8,11 @@ function App() {
   const runningTime = useRunningTime();
   
   return (
-    <div className="App">
-      <h1>Growing flower</h1>
+    <div className="App flex flex-col-reverse h-screen overflow-y-scroll pb-8">
+      <div className="flex flex-col items-center relative">
+        <div className='flex-1'></div>
 
-      <div className="plant-wrapper">
-        <div style={{ height: runningTime }} className='stem'>
+        <div style={{ height: runningTime }} className='stem w-2 duration-1000 rounded-t-full transition-all'>
         </div>
 
         {Array.from({ length: 8 }, (_, index) => {
