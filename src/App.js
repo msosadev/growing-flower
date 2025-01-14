@@ -6,6 +6,10 @@ import colors from './colors.json';
 
 function App() {
   const runningTime = useRunningTime();
+  const nrOfFlowers = Math.floor(runningTime / 60);
+  const savedFlowers = localStorage.getItem('flowers').split(',');
+  const savedPalettes = localStorage.getItem('palettes').split(',');
+
   function updateLocalStorage(key, value) {
     if (localStorage.getItem(key)) {
       const array = localStorage.getItem(key).split(',');
@@ -31,16 +35,10 @@ function App() {
         <div style={{ height: runningTime }} className='stem w-2 duration-1000 rounded-t-full transition-all'>
         </div>
 
-        {Array.from({ length: Math.floor(runningTime / 60) }, (_, index) => {
+        {Array.from({ length: nrOfFlowers }, (_, index) => {
           setRandomValue(index, 8, "flowers");
           setRandomValue(index, 8, "palettes");
-          return <Flower
-            key={index}
-            index={index}
-            flowerIndex={localStorage.getItem('flowers').split(',')[index]}
-            runningTime={runningTime}
-            palette={colors[localStorage.getItem('palettes').split(',')[index]]}
-          />
+          return <Flower key={index} index={index} flowerIndex={savedFlowers[index]} runningTime={runningTime} palette={colors[savedPalettes[index]]} />
         })
         }
 
