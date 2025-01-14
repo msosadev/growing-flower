@@ -1,39 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .stem {
   background: linear-gradient(180deg, rgba(147,175,69,1) 0%, rgba(96,109,41,1) 100%);
-  width: 8px;
-  border-radius: 16px 16px 0 0;
-  transition: height 1s ease-out 200ms;
-}
-
-.plant-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: translateY(-5px);
 }
 
 /* Flower CSS */
-
-.flower {
-  --flower-appear-delay: 1s;
-  --flower-bottom: 120px;
-  /* --primary-fill:  #FF8189;
-  --secondary-fill:  #FF9FA1;
-  --tertiary-fill:  #FFC8C7;
-  --leaf-fill:  #93AF45;
-  --stem-fill:  #7B8E36; */
-  position: absolute;
-  bottom: var(--flower-bottom);
-  transition: 200ms opacity ease-in-out var(--flower-appear-delay);
-}
-
-.left {
-  transform: rotate(-25deg) translateX(-40px);
-}
-
-.right {
-  transform: rotate(25deg) translateX(40px) scale(-1, 1);
-}
 
 .ixora-left {
   transform: rotate(-35deg) translateX(-45px);
