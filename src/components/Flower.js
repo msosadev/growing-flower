@@ -18,7 +18,7 @@ export default function Flower(props) {
             className={`transition-opacity duration-200 ease-in-out absolute
             ${props.index % 2 === 0 ? "-translate-x-9 -rotate-[25deg]" : "translate-x-9 rotate-[25deg] scale-x-[-1]"}`
             }>
-            <ReactSVG src={`/images/flowers/flower_${props.randomIndex}.svg`} />
+            <ReactSVG src={`/images/flowers/flower_${props.flowerIndex}.svg`} />
         </div>
     )
 }
