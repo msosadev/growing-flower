@@ -4,53 +4,8 @@ import useRunningTime from './hooks/useRunningTime';
 import pot from './images/pots/pot_1.svg';
 import colors from './colors.json';
 
-function updateLocalStorage(key, value) {
-  if (localStorage.getItem(key)) {
-    const array = parseStorage(key);
-    array.push(value);
-    localStorage.setItem(key, array);
-  } else {
-    localStorage.setItem(key, [value]);
-  }
-}
-
-function parseStorage(key) {
-  return localStorage.getItem(key).split(',');
-}
-
 function generateRandomValue() {
   return Math.floor((Math.random() * 8) + 1)
-}
-
-function setRandomValue(currentIndex, localStorageKey) {
-  if (!localStorage.getItem(localStorageKey) || !localStorage.getItem(localStorageKey).split(',')[currentIndex]) {
-    updateLocalStorage(localStorageKey, generateRandomValue());
-  }
-}
-
-function pushToLocalStorage(item, key) {
-  if (!localStorage.getItem(key)) {
-    updateLocalStorage(key, generateRandomValue());
-    return;
-  } else {
-    const arr = parseStorage(key);
-    arr.push(item);
-    updateLocalStorage(key, arr);
-  }
-}
-
-function calculateMissingItems(key, time) {
-  return Math.abs(Math.floor((time / 60) - localStorage.getItem(key)?.split(',').length))
-}
-
-function initializeLocalStorage(key) {
-  if (!localStorage.getItem(key)) {
-    updateLocalStorage(key, generateRandomValue())
-  }
-}
-
-function safeSubtract(a, b) {
-  return Math.max(0, a - b);
 }
 
 // START ------------------------------------------------------------------
