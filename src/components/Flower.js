@@ -14,9 +14,9 @@ export default function Flower(props) {
 
     let direction;
     if (props.flowerIndex === "ixora") {
-        direction = props.index % 2 === 0 ? "ixora-left" : "ixora-right";
+        direction = props.index % 2 === 0 ? " -rotate-[35deg]" : " rotate-[35deg] scale-x-[-1]";
     } else {
-        direction = props.index % 2 === 0 ? "-translate-x-9 -rotate-[25deg]" : "translate-x-9 rotate-[25deg] scale-x-[-1]";
+        direction = props.index % 2 === 0 ? " -rotate-[25deg]" : " rotate-[25deg] scale-x-[-1]";
     }
 
     return (
@@ -30,7 +30,7 @@ export default function Flower(props) {
                 "--leaf-fill": props.palette.leafFill,
                 "--stem-fill": props.palette.stemFill
             }}
-            className={`${transitionClass} transition-opacity duration-200 ease-in-out absolute ${direction}`
+            className={`${transitionClass} origin-bottom transition-opacity duration-200 ease-in-out absolute ${direction}`
             }>
             <ReactSVG src={`/images/flowers/flower_${props.flowerIndex}.svg`} />
         </div>

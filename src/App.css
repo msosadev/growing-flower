@@ -6,16 +6,6 @@
   background: linear-gradient(180deg, rgba(147,175,69,1) 0%, rgba(96,109,41,1) 100%);
 }
 
-/* Flower CSS */
-
-.ixora-left {
-  transform: rotate(-35deg) translateX(-45px);
-}
-
-.ixora-right {
-  transform: rotate(35deg) translateX(45px) scale(-1, 1);
-}
-
 /* SVG Colors */
 
 .primary-fill {
