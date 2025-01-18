@@ -17,8 +17,9 @@ function App() {
   const palettesKey = "palettes"
   let savedFlowers = [];
   let savedPalettes = [];
+  const flowersToRender = Math.floor(runningTime / 60);
 
-  const renderFirstFlower = Math.floor(runningTime / 60) > 0;
+  const renderFirstFlower = flowersToRender > 0;
 
   if (renderFirstFlower && !localStorage.getItem(flowersKey)) {
     localStorage.setItem(flowersKey, generateRandomValue());
@@ -29,7 +30,7 @@ function App() {
   } else if(localStorage.getItem(flowersKey)) {
     savedFlowers = localStorage.getItem(flowersKey).split(',');
     savedPalettes = localStorage.getItem(palettesKey).split(",");
-    missingItems = Math.floor(runningTime / 60) - savedFlowers.length;
+    missingItems = flowersToRender - savedFlowers.length;
 
     for (let i = 0; i < missingItems; i++) {
       savedFlowers.push(generateRandomValue());
@@ -49,7 +50,9 @@ function App() {
         </div>
 
         {savedFlowers.map((flowerIndex, index) => {
-          return <Flower key={index} index={index} flowerIndex={flowerIndex} runningTime={runningTime} palette={colors[savedPalettes[index]]} />
+          if ((index + 1 ) <= flowersToRender) {
+            return <Flower key={index} index={index} flowerIndex={flowerIndex} runningTime={runningTime} palette={colors[savedPalettes[index]]} />
+          }
         })}
 
         <img className="pot" src={pot} alt="A pot"></img>
