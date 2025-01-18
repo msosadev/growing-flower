@@ -1,16 +1,16 @@
+import { useState } from 'react';
 import './App.css';
 import Flower from './components/Flower';
 import useRunningTime from './hooks/useRunningTime';
 import pot from './images/pots/pot_1.svg';
 import colors from './colors.json';
-import { useState } from 'react';
+import windowBackground from './background.png'; // Adjust the path as needed
 
 function generateRandomValue() {
   return Math.floor((Math.random() * 8) + 1)
 }
 
 function checkDate(month, day) {
-  // Get today's date
   const today = new Date();
 
   if (today.getMonth() === month && today.getDate() === day) {
@@ -55,8 +55,11 @@ function App() {
   }
 
   return (
-    <div className="App flex flex-col-reverse h-screen overflow-y-scroll pb-8">
-      <div className="flex flex-col items-center relative">
+    <div className="App bg-yellow-100 relative flex flex-col-reverse h-screen overflow-y-scroll pb-24">
+      <div style={{backgroundImage: `url(${windowBackground})`}} className='window border-[24px] border-[#7E4E2D] [box-shadow:inset_0_0_0_16px_#4B260E] bg-[url("https://cdn.pixabay.com/photo/2022/06/15/18/29/landscape-7264427_1280.png")] bg-cover absolute left-1/2 transform -translate-x-1/2 bottom-16 h-[80vh] w-80'>
+        
+      </div>
+      <div className="flex drop-shadow-md flex-col items-center relative">
 
         <div style={{ height: runningTime }} className='stem w-2 duration-1000 rounded-t-full transition-all'>
         </div>
