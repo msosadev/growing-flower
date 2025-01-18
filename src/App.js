@@ -48,11 +48,9 @@ function App() {
         <div style={{ height: runningTime }} className='stem w-2 duration-1000 rounded-t-full transition-all'>
         </div>
 
-        {/* the animation is broken when using a conditional, make a separate component for the loop */}
         {savedFlowers.map((flowerIndex, index) => {
           return <Flower key={index} index={index} flowerIndex={flowerIndex} runningTime={runningTime} palette={colors[savedPalettes[index]]} />
         })}
-
 
         <img className="pot" src={pot} alt="A pot"></img>
       </div>
