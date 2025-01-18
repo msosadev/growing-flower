@@ -3,7 +3,19 @@
 @tailwind utilities;
 
 .stem {
-  background: linear-gradient(180deg, rgba(147,175,69,1) 0%, rgba(96,109,41,1) 100%);
+  background: linear-gradient(180deg, rgba(147, 175, 69, 1) 0%, rgba(96, 109, 41, 1) 100%);
+}
+
+.window::after {
+  content: "";
+  display: block;
+  top: 16px;
+  left: 16px;
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(1px);
+  position: absolute;
 }
 
 /* SVG Colors */
