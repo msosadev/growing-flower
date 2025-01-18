@@ -8,13 +8,11 @@ export default function Flower(props) {
 
     
     let direction;
-    let  invertFlower;
+    let invertFlower = props.index % 2 === 0 ? "" : "scale-x-[-1]";
     if (props.flowerIndex === "ixora") {
         direction = props.index % 2 === 0 ? " -rotate-[35deg]" : "rotate-[35deg]";
-        invertFlower = props.index % 2 === 0 ? "" : "scale-x-[-1]";
     } else {
         direction = props.index % 2 === 0 ? " -rotate-[25deg]" : "rotate-[25deg]";
-        invertFlower = props.index % 2 === 0 ? "" : "scale-x-[-1]";
     }
 
     useEffect(() => {
