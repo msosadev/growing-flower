@@ -6,18 +6,22 @@ export default function Flower(props) {
     const delay = `${((props.index + 1) / 2) + 1}s`;
     const [transitionClass, setTransitionClass] = useState("opacity-0");
 
+    
+    let direction;
+    let  invertFlower;
+    if (props.flowerIndex === "ixora") {
+        direction = props.index % 2 === 0 ? " -rotate-[35deg]" : "rotate-[35deg]";
+        invertFlower = props.index % 2 === 0 ? "" : "scale-x-[-1]";
+    } else {
+        direction = props.index % 2 === 0 ? " -rotate-[25deg]" : "rotate-[25deg]";
+        invertFlower = props.index % 2 === 0 ? "" : "scale-x-[-1]";
+    }
+
     useEffect(() => {
         setTimeout(() => {
-            setTransitionClass("opacity-100");
+            setTransitionClass(`opacity-100 ${direction}`);
         }, 50);
     })
-
-    let direction;
-    if (props.flowerIndex === "ixora") {
-        direction = props.index % 2 === 0 ? " -rotate-[35deg]" : " rotate-[35deg] scale-x-[-1]";
-    } else {
-        direction = props.index % 2 === 0 ? " -rotate-[25deg]" : " rotate-[25deg] scale-x-[-1]";
-    }
 
     return (
         <div
@@ -30,7 +34,7 @@ export default function Flower(props) {
                 "--leaf-fill": props.palette.leafFill,
                 "--stem-fill": props.palette.stemFill
             }}
-            className={`${transitionClass} origin-bottom transition-opacity duration-200 ease-in-out absolute ${direction}`
+            className={`${transitionClass} origin-bottom transition-all duration-500 ease-in-out absolute ${invertFlower}`
             }>
             <ReactSVG src={`/images/flowers/flower_${props.flowerIndex}.svg`} />
         </div>
