@@ -55,7 +55,7 @@ function App() {
   }
 
   return (
-    <div className="App bg-yellow-100 relative flex flex-col-reverse h-screen overflow-y-scroll pb-24">
+    <div className="App bg-yellow-100 relative flex flex-col-reverse h-screen overflow-y-auto pb-24">
       <div style={{backgroundImage: `url(${windowBackground})`}} className='window border-[24px] border-[#7E4E2D] [box-shadow:inset_0_0_0_16px_#4B260E] bg-[url("https://cdn.pixabay.com/photo/2022/06/15/18/29/landscape-7264427_1280.png")] bg-cover absolute left-1/2 transform -translate-x-1/2 bottom-16 h-[80vh] w-80'>
         
       </div>
