@@ -34,7 +34,7 @@ export default function Flower(props) {
             }}
             className={`${transitionClass} origin-bottom transition-all duration-500 ease-in-out absolute ${invertFlower}`
             }>
-            <ReactSVG src={`/images/flowers/flower_${props.flowerIndex}.svg`} />
+            <ReactSVG src={`/growing-flower/images/flowers/flower_${props.flowerIndex}.svg`} />
         </div>
     )
 }
