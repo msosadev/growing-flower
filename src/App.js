@@ -6,8 +6,8 @@ import pot from './images/pots/pot_1.svg';
 import colors from './colors.json';
 import windowBackground from './background.png'; // Adjust the path as needed
 
-function generateRandomValue() {
-  return Math.floor((Math.random() * 8) + 1)
+function generateRandomValue(max) {
+  return Math.floor((Math.random() * max) + 1)
 }
 
 function checkDate(month, day) {
@@ -36,8 +36,8 @@ function App() {
 
   if (!localStorage.getItem(flowersKey)) {
     // If it's January 19 set special flower ixora
-    checkDate(0, 19) ? localStorage.setItem(flowersKey, "ixora") : localStorage.setItem(flowersKey, generateRandomValue());
-    localStorage.setItem(palettesKey, generateRandomValue());
+    checkDate(0, 19) ? localStorage.setItem(flowersKey, "ixora") : localStorage.setItem(flowersKey, generateRandomValue(8));
+    localStorage.setItem(palettesKey, generateRandomValue(8));
     setSpecialFlower(true);
     missingItems = 0;
   } else if (localStorage.getItem(flowersKey)) {
@@ -46,8 +46,8 @@ function App() {
     missingItems = flowersToRender - savedFlowers.length;
 
     for (let i = 0; i < missingItems; i++) {
-      savedFlowers.push(generateRandomValue());
-      savedPalettes.push(generateRandomValue());
+      savedFlowers.push(generateRandomValue(8));
+      savedPalettes.push(generateRandomValue(colors.length - 1));
     }
 
     localStorage.setItem(flowersKey, savedFlowers);

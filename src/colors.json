@@ -68,5 +68,61 @@
         "tertiaryFill": "#C5A4FF",
         "leafFill": "#90C893",
         "stemFill": "#7AB278"
+    },
+    {
+        "primaryFill": "#D9F9A5",
+        "secondaryFill": "#F4FEC1",
+        "tertiaryFill": "#D2D68D",
+        "leafFill": "#81726A",
+        "stemFill": "#68534D"
+    },
+    {
+        "primaryFill": "#FE4A49",
+        "secondaryFill": "#2AB7CA",
+        "tertiaryFill": "#FED766",
+        "leafFill": "#A7A7E1",
+        "stemFill": "#45CC69"
+    },
+    {
+        "primaryFill": "#F26E5C",
+        "secondaryFill": "#C8786D",
+        "tertiaryFill": "#9D7570",
+        "leafFill": "#C7786D",
+        "stemFill": "#736765"
+    },
+    {
+        "primaryFill": "#FE4A49",
+        "secondaryFill": "#2AB7CA",
+        "tertiaryFill": "#FED766",
+        "leafFill": "#F4F4F8",
+        "stemFill": "#E6E6EA"
+    },
+    {
+        "primaryFill": "#FFC0CB",
+        "secondaryFill": "#FFD9E8",
+        "tertiaryFill": "#FED766",
+        "leafFill": "#FFC0CB",
+        "stemFill": "#85C563"
+    },
+    {
+        "primaryFill": "#2BA7E7",
+        "secondaryFill": "#63B8FD",
+        "tertiaryFill": "#FBD404",
+        "leafFill": "#DCEB5A",
+        "stemFill": "#87C527"
+    },
+    {
+        "primaryFill": "#9A348E",
+        "secondaryFill": "#DA627D",
+        "tertiaryFill": "#FCA17D",
+        "leafFill": "#F9DBBD",
+        "stemFill": "#F9DBBD"
+    },
+    {
+        "primaryFill": "#FFDE1A",
+        "secondaryFill": "#FEC101",
+        "tertiaryFill": "#713805",
+        "leafFill": "#929D17",
+        "stemFill": "#969914"
     }
 ]
