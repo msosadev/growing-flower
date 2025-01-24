@@ -41,4 +41,4 @@ npm run deploy
 ```
 
 ## Live Demo
-[View the live site here!](#)
+[View the live site here!](https://msosadev.github.io/growing-flower/)
