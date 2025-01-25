@@ -54,6 +54,15 @@ function App() {
     localStorage.setItem(palettesKey, savedPalettes);
   }
 
+  let stemBg = [];
+  savedFlowers.forEach((flower, index)=> {
+    let colorIndex = savedPalettes[index];
+    let position = (savedFlowers.length - index)*60;
+    let color = colors[colorIndex].stemFill;
+    let gradientValue = `${color} ${position}px`;
+    stemBg.push(gradientValue);
+  });
+
   return (
     <div className="App bg-yellow-100 relative flex flex-col-reverse h-screen overflow-y-auto pb-24">
       <div style={{backgroundImage: `url(${windowBackground})`}} className='window border-[24px] border-[#7E4E2D] [box-shadow:inset_0_0_0_16px_#4B260E] bg-[url("https://cdn.pixabay.com/photo/2022/06/15/18/29/landscape-7264427_1280.png")] bg-cover absolute left-1/2 transform -translate-x-1/2 bottom-16 h-[80vh] w-80'>
@@ -61,7 +70,7 @@ function App() {
       </div>
       <div className="flex drop-shadow-md flex-col items-center relative">
 
-        <div style={{ height: runningTime }} className='stem w-2 duration-1000 rounded-t-full transition-all'>
+        <div style={{ height: runningTime, background: `linear-gradient(${stemBg.reverse().join(",")})` }} className='stem w-2 duration-1000 rounded-t-full transition-all'>
         </div>
 
         {savedFlowers.map((flowerIndex, index) => {
