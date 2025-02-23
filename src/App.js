@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Flower from './components/Flower';
 import useRunningTime from './hooks/useRunningTime';
 import pot from './images/pots/pot_1.svg';
 import colors from './colors.json';
 import windowBackground from './background.png'; // Adjust the path as needed
+import Settings from './components/Settings';
 
 function generateRandomValue(max) {
   return Math.floor((Math.random() * max) + 1)
@@ -31,6 +32,7 @@ function App() {
   let savedFlowers = [];
   let savedPalettes = [];
   const flowersToRender = Math.floor(runningTime / 60);
+  const [selectedImage, setSelectedImage] = useState(windowBackground);
 
   // const renderFirstFlower = flowersToRender > 0;
 
@@ -54,34 +56,58 @@ function App() {
     localStorage.setItem(palettesKey, savedPalettes);
   }
 
+  useEffect(() => {
+    const windowImage = localStorage.getItem('windowImage');
+    if (windowImage) {
+      setSelectedImage(windowImage);
+    }
+  }, []);
+
+  const handleImageChange = (event) => {
+    const fileImage = event.target.files[0];
+    if (fileImage) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result;
+        setSelectedImage(base64String);
+        localStorage.setItem('windowImage', base64String);
+      };
+      reader.readAsDataURL(fileImage);
+    }
+  };
+
   let stemBg = [];
-  savedFlowers.forEach((flower, index)=> {
+  savedFlowers.forEach((flower, index) => {
     let colorIndex = savedPalettes[index];
-    let position = (savedFlowers.length - index)*60;
+    let position = (savedFlowers.length - index) * 60;
     let color = colors[colorIndex].stemFill;
     let gradientValue = `${color} ${position}px`;
     stemBg.push(gradientValue);
   });
 
   return (
-    <div className="App bg-yellow-100 relative flex flex-col-reverse h-screen overflow-y-auto pb-24">
-      <div style={{backgroundImage: `url(${windowBackground})`}} className='window border-[24px] border-[#7E4E2D] [box-shadow:inset_0_0_0_16px_#4B260E] bg-[url("https://cdn.pixabay.com/photo/2022/06/15/18/29/landscape-7264427_1280.png")] bg-cover absolute left-1/2 transform -translate-x-1/2 bottom-16 h-[80vh] w-80'>
-        
-      </div>
-      <div className="flex drop-shadow-md flex-col items-center relative">
+    <>
+      <Settings selectedImage={selectedImage} handleImageChange={handleImageChange} />
+      <div className="App bg-yellow-100 relative flex flex-col-reverse h-screen overflow-y-auto pb-24">
 
-        <div style={{ height: runningTime, background: `linear-gradient(${stemBg.reverse().join(",")})` }} className='stem w-2 duration-1000 rounded-t-full transition-all'>
+        <div style={{ backgroundImage: `url(${selectedImage})` }} className='window border-[24px] bg-center border-[#7E4E2D] [box-shadow:inset_0_0_0_16px_#4B260E] bg-cover absolute left-1/2 transform -translate-x-1/2 bottom-16 h-[80vh] w-80'>
+
         </div>
+        <div className="flex drop-shadow-md flex-col items-center relative">
 
-        {savedFlowers.map((flowerIndex, index) => {
-          if ((index + 1) <= flowersToRender) {
-            return <Flower key={index} index={index} flowerIndex={flowerIndex} runningTime={runningTime} palette={colors[savedPalettes[index]]} />
-          }
-        })}
+          <div style={{ height: runningTime, background: `linear-gradient(${stemBg.reverse().join(",")})` }} className='stem w-2 duration-1000 rounded-t-full transition-all'>
+          </div>
 
-        <img className="pot" src={pot} alt="A pot"></img>
+          {savedFlowers.map((flowerIndex, index) => {
+            if ((index + 1) <= flowersToRender) {
+              return <Flower key={index} index={index} flowerIndex={flowerIndex} runningTime={runningTime} palette={colors[savedPalettes[index]]} />
+            }
+          })}
+
+          <img className="pot" src={pot} alt="A pot"></img>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
