@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/growing-flower/static/css/main.ce751a14.css",
-    "main.js": "/growing-flower/static/js/main.f1c45c8a.js",
+    "main.css": "/growing-flower/static/css/main.55ba60ec.css",
+    "main.js": "/growing-flower/static/js/main.e6f68ad9.js",
     "static/media/background.png": "/growing-flower/static/media/background.ba1ecca9e6c1e4faa61c.png",
     "index.html": "/growing-flower/index.html",
     "static/media/pot_1.svg": "/growing-flower/static/media/pot_1.962214d574200aa1d77b3510ecc0bd8e.svg",
-    "main.ce751a14.css.map": "/growing-flower/static/css/main.ce751a14.css.map",
-    "main.f1c45c8a.js.map": "/growing-flower/static/js/main.f1c45c8a.js.map"
+    "main.55ba60ec.css.map": "/growing-flower/static/css/main.55ba60ec.css.map",
+    "main.e6f68ad9.js.map": "/growing-flower/static/js/main.e6f68ad9.js.map"
   },
   "entrypoints": [
-    "static/css/main.ce751a14.css",
-    "static/js/main.f1c45c8a.js"
+    "static/css/main.55ba60ec.css",
+    "static/js/main.e6f68ad9.js"
   ]
 }
