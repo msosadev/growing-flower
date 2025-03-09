@@ -29,44 +29,41 @@ function checkDate(month, day) {
 
 function App() {
   const runningTime = useRunningTime();
-  const [specialFlower, setSpecialFlower] = useState(false);
-  let missingItems;
   const flowersKey = "flowers"
   const palettesKey = "palettes"
-  let savedFlowers = [];
-  let savedPalettes = [];
   const [flowersToRender, setFlowersToRender] = useState([]);
   const [palettesToRender, setPalettesToRender] = useState([]);
+  const [stemBg, setStemBg] = useState([]);
   const quantityOfFlowersToShow = Math.floor(runningTime / 60);
   const [selectedImage, setSelectedImage] = useState(windowBackground);
-  // const moviesCollectionRef = collection(db, "movies");
+  
+  // Flowers Local Storage setup
+  useEffect(() => {
+    let savedFlowers = [];
+    let savedPalettes = [];
+    let missingItems;
 
-  // const renderFirstFlower = flowersToRender > 0;
-
-  useEffect(()=>{
-    
     if (!localStorage.getItem(flowersKey)) {
       // If it's January 19 set special flower ixora
       checkDate(0, 19) ? localStorage.setItem(flowersKey, "ixora") : localStorage.setItem(flowersKey, generateRandomValue(8));
       localStorage.setItem(palettesKey, generateRandomValue(8));
-      setSpecialFlower(true);
       missingItems = 0;
     } else if (localStorage.getItem(flowersKey)) {
       savedFlowers = localStorage.getItem(flowersKey).split(',');
       savedPalettes = localStorage.getItem(palettesKey).split(",");
       missingItems = quantityOfFlowersToShow - savedFlowers.length;
-      
+
       for (let i = 0; i < missingItems; i++) {
         savedFlowers.push(generateRandomValue(8));
         savedPalettes.push(generateRandomValue(colors.length - 1));
       }
-      
+
       setFlowersToRender(savedFlowers);
       setPalettesToRender(savedPalettes);
       localStorage.setItem(flowersKey, savedFlowers);
       localStorage.setItem(palettesKey, savedPalettes);
     }
-  },[])
+  }, [])
 
   const handleImageChange = (event) => {
     const fileImage = event.target.files[0];
@@ -86,18 +83,24 @@ function App() {
     if (windowImage) {
       setSelectedImage(windowImage);
     }
-
   }, []);
 
 
-  let stemBg = [];
-  flowersToRender.forEach((flower, index) => {
-    let colorIndex = palettesToRender[index];
-    let position = (savedFlowers.length - index) * 60;
-    let color = colors[colorIndex].stemFill;
-    let gradientValue = `${color} ${position}px`;
-    stemBg.push(gradientValue);
-  });
+  // Set stem background color
+  useEffect(() => {
+    if (flowersToRender.length < 1 || palettesToRender.length < 1) return;
+    
+    let stemColors = [];
+    flowersToRender.forEach((flower, index) => {
+      let colorIndex = palettesToRender[index];
+      let position = (flowersToRender.length - index) * 60;
+      let color = colors[colorIndex].stemFill;
+      let gradientValue = `${color} ${position}px`;
+      stemColors.push(gradientValue);
+    });
+    
+    setStemBg(stemColors.reverse());
+  }, [flowersToRender, palettesToRender])
 
   // Firebase -----------------------------------------------------------------
 
@@ -145,11 +148,11 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!flowersToRender || !palettesToRender || !userId) return;
     getFlowerList();
-    
-  },[flowersToRender, userId]);
+
+  }, [flowersToRender, userId]);
 
   return (
     <>
