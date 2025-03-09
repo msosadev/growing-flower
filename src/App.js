@@ -6,6 +6,10 @@ import pot from './images/pots/pot_1.svg';
 import colors from './colors.json';
 import windowBackground from './background.png'; // Adjust the path as needed
 import Settings from './components/Settings';
+import Flowers from './components/Flowers';
+import { auth, db } from './config/firebase';
+import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc, query, where } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 function generateRandomValue(max) {
   return Math.floor((Math.random() * max) + 1)
@@ -31,37 +35,38 @@ function App() {
   const palettesKey = "palettes"
   let savedFlowers = [];
   let savedPalettes = [];
-  const flowersToRender = Math.floor(runningTime / 60);
+  const [flowersToRender, setFlowersToRender] = useState([]);
+  const [palettesToRender, setPalettesToRender] = useState([]);
+  const quantityOfFlowersToShow = Math.floor(runningTime / 60);
   const [selectedImage, setSelectedImage] = useState(windowBackground);
+  // const moviesCollectionRef = collection(db, "movies");
 
   // const renderFirstFlower = flowersToRender > 0;
 
-  if (!localStorage.getItem(flowersKey)) {
-    // If it's January 19 set special flower ixora
-    checkDate(0, 19) ? localStorage.setItem(flowersKey, "ixora") : localStorage.setItem(flowersKey, generateRandomValue(8));
-    localStorage.setItem(palettesKey, generateRandomValue(8));
-    setSpecialFlower(true);
-    missingItems = 0;
-  } else if (localStorage.getItem(flowersKey)) {
-    savedFlowers = localStorage.getItem(flowersKey).split(',');
-    savedPalettes = localStorage.getItem(palettesKey).split(",");
-    missingItems = flowersToRender - savedFlowers.length;
-
-    for (let i = 0; i < missingItems; i++) {
-      savedFlowers.push(generateRandomValue(8));
-      savedPalettes.push(generateRandomValue(colors.length - 1));
+  useEffect(()=>{
+    
+    if (!localStorage.getItem(flowersKey)) {
+      // If it's January 19 set special flower ixora
+      checkDate(0, 19) ? localStorage.setItem(flowersKey, "ixora") : localStorage.setItem(flowersKey, generateRandomValue(8));
+      localStorage.setItem(palettesKey, generateRandomValue(8));
+      setSpecialFlower(true);
+      missingItems = 0;
+    } else if (localStorage.getItem(flowersKey)) {
+      savedFlowers = localStorage.getItem(flowersKey).split(',');
+      savedPalettes = localStorage.getItem(palettesKey).split(",");
+      missingItems = quantityOfFlowersToShow - savedFlowers.length;
+      
+      for (let i = 0; i < missingItems; i++) {
+        savedFlowers.push(generateRandomValue(8));
+        savedPalettes.push(generateRandomValue(colors.length - 1));
+      }
+      
+      setFlowersToRender(savedFlowers);
+      setPalettesToRender(savedPalettes);
+      localStorage.setItem(flowersKey, savedFlowers);
+      localStorage.setItem(palettesKey, savedPalettes);
     }
-
-    localStorage.setItem(flowersKey, savedFlowers);
-    localStorage.setItem(palettesKey, savedPalettes);
-  }
-
-  useEffect(() => {
-    const windowImage = localStorage.getItem('windowImage');
-    if (windowImage) {
-      setSelectedImage(windowImage);
-    }
-  }, []);
+  },[])
 
   const handleImageChange = (event) => {
     const fileImage = event.target.files[0];
@@ -76,14 +81,75 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    const windowImage = localStorage.getItem('windowImage');
+    if (windowImage) {
+      setSelectedImage(windowImage);
+    }
+
+  }, []);
+
+
   let stemBg = [];
-  savedFlowers.forEach((flower, index) => {
-    let colorIndex = savedPalettes[index];
+  flowersToRender.forEach((flower, index) => {
+    let colorIndex = palettesToRender[index];
     let position = (savedFlowers.length - index) * 60;
     let color = colors[colorIndex].stemFill;
     let gradientValue = `${color} ${position}px`;
     stemBg.push(gradientValue);
   });
+
+  // Firebase -----------------------------------------------------------------
+
+  const [userId, setUserId] = useState("");
+  const flowersCollectionRef = collection(db, "flowers");
+
+  async function updateFlower(id, property, newValue) {
+    try {
+      const documentReference = doc(flowersCollectionRef, id);
+      const updatedDoc = {}
+      updatedDoc[property] = newValue;
+      updateDoc(documentReference, updatedDoc);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function getFlowerList() {
+    try {
+      if (!auth.currentUser) return;
+
+      const flowersQuery = query(flowersCollectionRef, where("userId", "==", auth.currentUser.uid));
+      const data = await getDocs(flowersQuery);
+      const filteredData = data.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+      }));
+
+      filteredData.forEach(flower => {
+        updateFlower(flower.id, "flowers", flowersToRender);
+        updateFlower(flower.id, "palettes", palettesToRender);
+      })
+    } catch (error) {
+      console.error("Error fetching flowers:", error);
+    }
+  }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserId(user.uid);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(()=>{
+    if (!flowersToRender || !palettesToRender || !userId) return;
+    getFlowerList();
+    
+  },[flowersToRender, userId]);
 
   return (
     <>
@@ -98,9 +164,9 @@ function App() {
           <div style={{ height: runningTime, background: `linear-gradient(${stemBg.reverse().join(",")})` }} className='stem w-2 duration-1000 rounded-t-full transition-all'>
           </div>
 
-          {savedFlowers.map((flowerIndex, index) => {
-            if ((index + 1) <= flowersToRender) {
-              return <Flower key={index} index={index} flowerIndex={flowerIndex} runningTime={runningTime} palette={colors[savedPalettes[index]]} />
+          {flowersToRender.map((flowerIndex, index) => {
+            if ((index + 1) <= quantityOfFlowersToShow) {
+              return <Flower key={index} index={index} flowerIndex={flowerIndex} runningTime={runningTime} palette={colors[palettesToRender[index]]} />
             }
           })}
 
