@@ -12,6 +12,15 @@ function Flowers() {
     const [userId, setUserId] = useState("");
     const flowersCollectionRef = collection(db, "flowers");
 
+    // async function removeFlower(id) {
+    //     try {
+    //         const documentReference = doc(flowersCollectionRef, id);
+    //         deleteDoc(documentReference);
+    //         getFlowerList();
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
 
     async function addNewFlower() {
         try {
@@ -25,26 +34,30 @@ function Flowers() {
         }
     }
 
-    // async function removeFlower(id) {
-    //     try {
-    //         const documentReference = doc(flowersCollectionRef, id);
-    //         deleteDoc(documentReference);
-    //         getFlowerList();
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
-
     async function updateFlower(id, property, newValue) {
         try {
             const documentReference = doc(flowersCollectionRef, id);
             const updatedDoc = {}
-            updatedDoc[property] = newValue.split(",");
+            if (typeof newValue === "string") {
+                updatedDoc[property] = newValue.split(",");
+            } else {
+                updatedDoc[property] = newValue;
+            }
             updateDoc(documentReference, updatedDoc);
-            getFlowerList();
         } catch (error) {
             console.error(error);
         }
+    }
+
+    function updateRemoteFlowers(flowersArr) {
+        console.log(flowersArr);
+        
+        flowersArr.forEach(flower => {
+            const palettesArr = localStorage.getItem("palettes").split(",");
+            console.log(palettesArr);
+            
+            updateFlower(flower.id, "palettes", palettesArr);
+        })
     }
 
     async function getFlowerList() {
@@ -59,6 +72,7 @@ function Flowers() {
             }));
 
             setFlowers(filteredData);
+            updateRemoteFlowers(filteredData);
         } catch (error) {
             console.error("Error fetching flowers:", error);
         }
