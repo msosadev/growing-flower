@@ -11,6 +11,7 @@ import { auth, db } from './config/firebase';
 import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc, query, where } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import Dialog from './components/Dialog';
+import Account from './components/Account';
 
 function generateRandomValue(max) {
   return Math.floor((Math.random() * max) + 1)
@@ -163,9 +164,18 @@ function App() {
     </div>
   );
 
+  const accountTrigger = (
+    <div className="fixed top-4 right-20 z-10">
+      <button className="p-2 bg-white rounded-full shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+    </div>
+  );
+
   return (
     <>
-      <Dialog title={'Settings'} trigger={settingsTrigger} content={<Settings selectedImage={selectedImage} handleImageChange={handleImageChange} />} />
+      <Dialog title='Settings' trigger={settingsTrigger} content={<Settings selectedImage={selectedImage} handleImageChange={handleImageChange} />} />
+      <Dialog title='Account' trigger={accountTrigger} content={<Account userId={userId} />} />
       <div className="App bg-yellow-100 relative flex flex-col-reverse h-screen overflow-y-auto pb-24">
 
         <div style={{ backgroundImage: `url(${selectedImage})` }} className='window border-[24px] bg-center border-[#7E4E2D] [box-shadow:inset_0_0_0_16px_#4B260E] bg-cover absolute left-1/2 transform -translate-x-1/2 bottom-16 h-[80vh] w-80'>
