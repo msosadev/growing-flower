@@ -13,7 +13,7 @@ function Settings(props) {
                         className="hidden"
                         id="window-background-input"
                     />
-                    <Button htmlFor="window-background-input" className="pointer-events-none" label="Set Image" />
+                    <Button htmlFor="window-background-input" className="pointer-events-none">Set Image</Button>
                 </div>
 
                 <div style={{ backgroundImage: `url(${props.selectedImage})` }} className='bg-center bg-cover aspect-square min-h-8'></div>

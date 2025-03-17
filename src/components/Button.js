@@ -1,5 +1,6 @@
-function Button({ onClick,
-    label = "Button",
+function Button({
+    children,
+    onClick,
     type = "filled",
     state = "resting",
     disabled = false,
@@ -28,7 +29,7 @@ function Button({ onClick,
 
 
     return (
-        <Component htmlFor={htmlFor || undefined} onClick={onClick} disabled={disabled} className={`px-2 text-sm w-fit py-1 block rounded-md text-s transition-colors cursor-pointer ${styles[type][state]} ${classes}`}>{label}</Component>
+        <Component htmlFor={htmlFor || undefined} onClick={onClick} disabled={disabled} className={`px-2 text-sm w-fit py-1 block rounded-md text-s transition-colors cursor-pointer ${styles[type][state]} ${classes}`}>{children || "Button"}</Component>
     )
 }
 

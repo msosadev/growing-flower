@@ -20,12 +20,12 @@ function Account(props) {
         props.userId ?
             <div>
                 <h6>Hello {auth.currentUser.displayName}!</h6>
-                <Button onClick={logout} label="Logout" />
+                <Button type="outlined" state="error" onClick={logout}>Logout</Button>
             </div>
         :
         <>
             {showLogin ? <Login /> : <Register />}
-            {showLogin ? <Button label="Create new account" onClick={() => { setShowLogin(false) }} /> : <Button label="Login instead" onClick={() => { setShowLogin(true) }} />}
+            {showLogin ? <Button classes="w-full mt-3" type="text" onClick={() => { setShowLogin(false) }}>Create new account</Button> : <Button classes="w-full mt-3" type="text" onClick={() => { setShowLogin(true) }}>Login instead</Button>}
         </>
     )
 }

@@ -21,12 +21,12 @@ function Register() {
 
     return (
         <div>
-            <div className="flex flex-col gap-4 max-w-60 mx-auto [&_input]:border">
+            <div className="flex flex-col gap-4 [&_input]:border">
                 <h1>Register</h1>
                 <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" placeholder="Email" />
                 <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="Password" />
-                <Button onClick={Register} label="Register" />
-                <Button onClick={signInWithGoogle} label="Sign in with Google" />
+                <Button classes="w-full" onClick={Register}>Register</Button>
+                <Button classes="w-full" onClick={signInWithGoogle}>Sign in with Google</Button>
             </div>
         </div>
     );
