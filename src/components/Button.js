@@ -1,6 +1,24 @@
-function Button(props) {
-    return(
-        <button onClick={props.onClick} className="px-2 w-fit py-1 block bg-purple-500 text-white rounded-md text-sm hover:bg-purple-400 transition-colors cursor-pointer">{props.label}</button>
+function Button({onClick, label = "Button", type = "filled", state = "resting", disabled = false}) {
+    const styles = {
+        filled: {
+            resting: "bg-purple-600 text-white hover:bg-purple-500",
+            error: "bg-red-600 text-white hover:bg-red-500",
+            disabled: "bg-gray-400 text-white opacity-50 cursor-not-allowed",
+        },
+        outlined: {
+            resting: "border border-purple-600 text-purple-600 hover:bg-purple-100",
+            error: "border border-red-600 text-red-600 hover:bg-red-100",
+            disabled: "border border-gray-400 text-gray-400 opacity-50 cursor-not-allowed",
+        },
+        text: {
+            resting: "text-purple-600 hover:bg-purple-100",
+            error: "text-red-600 hover:bg-red-100",
+            disabled: "text-gray-400 opacity-50 cursor-not-allowed",
+        },
+    };
+
+    return (
+        <button onClick={onClick} disabled={disabled} className={`px-2 text-sm w-fit py-1 block rounded-md text-s transition-colors cursor-pointer ${styles[type][state]}`}>{label}</button>
     )
 }
 
