@@ -1,4 +1,11 @@
-function Button({onClick, label = "Button", type = "filled", state = "resting", disabled = false}) {
+function Button({ onClick,
+    label = "Button",
+    type = "filled",
+    state = "resting",
+    disabled = false,
+    htmlFor,
+    classes
+}) {
     const styles = {
         filled: {
             resting: "bg-purple-600 text-white hover:bg-purple-500",
@@ -17,8 +24,11 @@ function Button({onClick, label = "Button", type = "filled", state = "resting", 
         },
     };
 
+    const Component = htmlFor ? "label" : "button";
+
+
     return (
-        <button onClick={onClick} disabled={disabled} className={`px-2 text-sm w-fit py-1 block rounded-md text-s transition-colors cursor-pointer ${styles[type][state]}`}>{label}</button>
+        <Component htmlFor={htmlFor || undefined} onClick={onClick} disabled={disabled} className={`px-2 text-sm w-fit py-1 block rounded-md text-s transition-colors cursor-pointer ${styles[type][state]} ${classes}`}>{label}</Component>
     )
 }
 

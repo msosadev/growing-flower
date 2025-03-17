@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 function Settings(props) {
     return (
         <div>
@@ -11,7 +13,7 @@ function Settings(props) {
                         className="hidden"
                         id="window-background-input"
                     />
-                    <label className="px-2 w-fit py-1 block bg-purple-500 text-white rounded-md text-sm hover:bg-purple-400 transition-colors cursor-pointer" htmlFor="window-background-input">Set Image</label>
+                    <Button htmlFor="window-background-input" className="pointer-events-none" label="Set Image" />
                 </div>
 
                 <div style={{ backgroundImage: `url(${props.selectedImage})` }} className='bg-center bg-cover aspect-square min-h-8'></div>
