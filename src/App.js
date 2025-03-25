@@ -4,7 +4,7 @@ import Flower from './components/Flower';
 import useRunningTime from './hooks/useRunningTime';
 import pot from './images/pots/pot_1.svg';
 import colors from './colors.json';
-import windowBackground from './background.png'; // Adjust the path as needed
+import windowBackground from './background.png';
 import Settings from './components/Settings';
 import Flowers from './components/Flowers';
 import { auth, db } from './config/firebase';
@@ -12,6 +12,7 @@ import { getDocs, collection, addDoc, deleteDoc, doc, updateDoc, query, where } 
 import { onAuthStateChanged } from "firebase/auth";
 import Dialog from './components/Dialog';
 import Account from './components/Account';
+import Icon from './components/Icon';
 
 function generateRandomValue(max) {
   return Math.floor((Math.random() * max) + 1)
@@ -38,7 +39,7 @@ function App() {
   const [stemBg, setStemBg] = useState([]);
   const quantityOfFlowersToShow = Math.floor(runningTime / 60);
   const [selectedImage, setSelectedImage] = useState(windowBackground);
-  
+
   // Flowers Local Storage setup
   useEffect(() => {
     let savedFlowers = [];
@@ -91,7 +92,7 @@ function App() {
   // Set stem background color
   useEffect(() => {
     if (flowersToRender.length < 1 || palettesToRender.length < 1) return;
-    
+
     let stemColors = [];
     flowersToRender.forEach((flower, index) => {
       let colorIndex = palettesToRender[index];
@@ -100,7 +101,7 @@ function App() {
       let gradientValue = `${color} ${position}px`;
       stemColors.push(gradientValue);
     });
-    
+
     setStemBg(stemColors.reverse());
   }, [flowersToRender, palettesToRender])
 
@@ -159,15 +160,27 @@ function App() {
   const settingsTrigger = (
     <div className="fixed top-4 right-5 z-10 rounded-full">
       <button className="p-2 bg-white rounded-full shadow-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <Icon name='settings' />
       </button>
     </div>
   );
 
   const accountTrigger = (
     <div className="fixed top-4 right-20 z-10 rounded-full">
-      <button className={`bg-white rounded-full shadow-lg ${!userId ? "p-2" : ""}`}>
-        {userId ? <img className='rounded-full size-10' src={auth.currentUser.photoURL} alt="User's profile picture" />: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> }
+      <button className={`bg-white rounded-full shadow-lg ${userId && auth.currentUser.photoURL ? "" : "p-2"}`}>
+        {userId ? (
+          auth.currentUser.photoURL ? (
+            <img
+              className="rounded-full size-10"
+              src={auth.currentUser.photoURL}
+              alt="User's profile picture"
+            />
+          ) : (
+            <Icon name="smile" />
+          )
+        ) : (
+          <Icon name="user" />
+        )}
       </button>
     </div>
   );
