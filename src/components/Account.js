@@ -18,7 +18,8 @@ function Account(props) {
     
     return (
         props.userId ?
-            <div>
+            <div className="text-center flex items-center flex-col gap-3">
+                <img className='rounded-full size-10' src={auth.currentUser.photoURL} alt="User's profile picture" />
                 <h6>Hello {auth.currentUser.displayName}!</h6>
                 <Button type="outlined" state="error" onClick={logout}>Logout</Button>
             </div>
