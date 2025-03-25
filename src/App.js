@@ -121,6 +121,15 @@ function App() {
     }
   }
 
+  async function createNewFlower() {
+    try {
+      const newFlower = { flowers: flowersToRender, palettes: palettesToRender, userId: auth.currentUser.uid }
+      addDoc(flowersCollectionRef, newFlower);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async function getFlowerList() {
     try {
       if (!auth.currentUser) return;
@@ -132,10 +141,14 @@ function App() {
         id: doc.id
       }));
 
-      filteredData.forEach(flower => {
-        updateFlower(flower.id, "flowers", flowersToRender);
-        updateFlower(flower.id, "palettes", palettesToRender);
-      })
+      if (filteredData.length === 0) {
+        createNewFlower();
+      } else {
+        filteredData.forEach(flower => {
+          updateFlower(flower.id, "flowers", flowersToRender);
+          updateFlower(flower.id, "palettes", palettesToRender);
+        })
+      }
     } catch (error) {
       console.error("Error fetching flowers:", error);
     }
